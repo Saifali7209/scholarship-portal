@@ -1,0 +1,387 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-50: #f0f5fa;
+  --color-navy-100: #e2ebf5;
+  --color-navy-200: #c5d7eb;
+  --color-navy-300: #97bade;
+  --color-navy-400: #6297cd;
+  --color-navy-500: #3c77bb;
+  --color-navy-600: #2b5fa3;
+  --color-navy-700: #234c85;
+  --color-navy-800: #1a3964;
+  --color-navy-850: #132d52;
+  --color-navy-900: #0f2544;
+  --color-navy-950: #09172c;
+
+  --color-slate-750: #243044;
+  --color-slate-850: #151f30;
+
+  --font-sans: var(--font-sans), 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Tabular numbers for dates, IDs, and financial figures */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   BUTTON SYSTEM (Modern Institutional Specification)
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  line-height: 1.25rem;
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #234c85;
+}
+
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-primary {
+  background-color: #0f2544;
+  color: #ffffff;
+  border: 1px solid #09172c;
+  box-shadow: 0 1px 2px 0 rgba(15, 37, 68, 0.15);
+}
+
+.btn-primary:hover {
+  background-color: #1a3964;
+  border-color: #132d52;
+}
+
+.btn-primary:active {
+  background-color: #09172c;
+  transform: scale(0.99);
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.btn-secondary:active {
+  background-color: #f1f5f9;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #1a3964;
+  border: 1px solid #c5d7eb;
+}
+
+.btn-outline:hover {
+  background-color: #f0f5fa;
+  border-color: #97bade;
+}
+
+.btn-danger {
+  background-color: #e11d48;
+  color: #ffffff;
+  border: 1px solid #be123c;
+  box-shadow: 0 1px 2px 0 rgba(225, 29, 72, 0.15);
+}
+
+.btn-danger:hover {
+  background-color: #be123c;
+}
+
+.btn-success {
+  background-color: #059669;
+  color: #ffffff;
+  border: 1px solid #047857;
+  box-shadow: 0 1px 2px 0 rgba(5, 150, 105, 0.15);
+}
+
+.btn-success:hover {
+  background-color: #047857;
+}
+
+.btn-amber {
+  background-color: #d97706;
+  color: #ffffff;
+  border: 1px solid #b45309;
+  box-shadow: 0 1px 2px 0 rgba(217, 119, 6, 0.2);
+}
+
+.btn-amber:hover {
+  background-color: #b45309;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: #475569;
+  border: 1px solid transparent;
+}
+
+.btn-ghost:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.btn-icon:hover {
+  color: #0f172a;
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Sizing */
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  height: 2rem;
+}
+
+.btn-md {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  height: 2.5rem;
+}
+
+.btn-lg {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  height: 2.75rem;
+}
+
+/* ==========================================================================
+   FORM CONTROLS (Government & Institutional Standard)
+   ========================================================================== */
+
+.gov-input,
+.gov-select,
+.gov-textarea {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-size: 0.8125rem;
+  transition: all 150ms ease-in-out;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.gov-input,
+.gov-select {
+  height: 2.5rem;
+  padding: 0 0.75rem;
+}
+
+.gov-textarea {
+  padding: 0.625rem 0.75rem;
+}
+
+.gov-input:hover,
+.gov-select:hover,
+.gov-textarea:hover {
+  border-color: #94a3b8;
+}
+
+.gov-input:focus,
+.gov-select:focus,
+.gov-textarea:focus {
+  outline: none;
+  border-color: #234c85;
+  box-shadow: 0 0 0 3px rgba(35, 76, 133, 0.15);
+  background-color: #ffffff;
+}
+
+.gov-input:disabled,
+.gov-select:disabled,
+.gov-textarea:disabled {
+  background-color: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+.gov-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.375rem;
+  letter-spacing: -0.01em;
+}
+
+.gov-required {
+  color: #e11d48;
+  font-weight: 700;
+  margin-left: 0.125rem;
+}
+
+.gov-hint {
+  font-size: 0.6875rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   CARDS & CONTAINERS
+   ========================================================================== */
+
+.gov-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+}
+
+.gov-card-elevated {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.gov-card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gov-card-body {
+  padding: 1.25rem;
+}
+
+/* ==========================================================================
+   TABLES (Data Grid)
+   ========================================================================== */
+
+.gov-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background-color: #ffffff;
+}
+
+.gov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  text-align: left;
+}
+
+.gov-table thead {
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.gov-table th {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.6875rem;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.gov-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+.gov-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.gov-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Print stylesheet for official application slip & acknowledgement */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, nav, footer, button, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-card {
+    box-shadow: none !important;
+    border: 1px solid #000000 !important;
+  }
+}
