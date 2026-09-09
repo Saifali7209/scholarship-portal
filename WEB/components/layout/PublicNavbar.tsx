@@ -23,17 +23,17 @@ export const PublicNavbar: React.FC = () => {
   return (
     <nav className="bg-white border-b border-slate-200/90 sticky top-[38px] z-40 transition-shadow">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Brand Logo & National Seal Embellishment */}
-          <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 rounded-xl bg-[#0f2544] border border-[#09172c] flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
-              <GraduationCap className="w-6 h-6 text-amber-400" />
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group min-w-0">
+            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl bg-[#0f2544] border border-[#09172c] flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-105 flex-shrink-0">
+              <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
             </div>
-            <div>
-              <span className="text-base font-black text-slate-950 tracking-tight block leading-none">
+            <div className="min-w-0">
+              <span className="text-sm sm:text-base font-black text-slate-950 tracking-tight block leading-none">
                 IICC SCHOLARSHIPS
               </span>
-              <span className="text-[10px] text-slate-500 font-bold tracking-widest uppercase block mt-1">
+              <span className="text-[9px] sm:text-[10px] text-slate-500 font-bold tracking-wider sm:tracking-widest uppercase block mt-0.5 sm:mt-1 truncate max-w-[200px] xs:max-w-xs sm:max-w-none">
                 India Islamic Cultural Centre • New Delhi
               </span>
             </div>
