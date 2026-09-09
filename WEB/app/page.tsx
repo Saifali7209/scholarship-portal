@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "../components/layout/PublicNavbar";
 import { PublicFooter } from "../components/layout/PublicFooter";
-import { HomeDotBackground } from "../components/ui/HomeDotBackground";
 import { MOCK_SCHOLARSHIPS } from "../data/mock-scholarships";
 import {
   GraduationCap,
@@ -21,11 +20,46 @@ import {
   Clock,
   Sparkles,
   Building,
-  Check
+  Check,
+  ChevronRight,
+  Calculator,
+  ExternalLink,
+  Landmark,
+  TrendingUp,
+  Shield,
+  MapPin,
+  ClipboardCheck,
+  Zap,
+  BookOpen
 } from "lucide-react";
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+
+  const filteredScholarships = useMemo(() => {
+    if (selectedCategory === "All") {
+      return MOCK_SCHOLARSHIPS;
+    }
+    return MOCK_SCHOLARSHIPS.filter((sch) => {
+      if (selectedCategory === "Undergraduate") {
+        return sch.category.includes("Undergraduate") || sch.educationLevel === "Undergraduate";
+      }
+      if (selectedCategory === "Postgraduate") {
+        return sch.category.includes("Postgraduate") || sch.educationLevel === "Postgraduate";
+      }
+      if (selectedCategory === "Senior Secondary") {
+        return sch.category.includes("Senior Secondary") || sch.educationLevel === "Senior Secondary";
+      }
+      if (selectedCategory === "School") {
+        return sch.category.includes("School") || sch.educationLevel === "School Level";
+      }
+      if (selectedCategory === "Diploma") {
+        return sch.category.includes("Diploma") || sch.educationLevel === "Diploma";
+      }
+      return true;
+    });
+  }, [selectedCategory]);
 
   const faqs = [
     {
@@ -51,140 +85,504 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-white font-sans text-slate-900 relative">
-      {/* Full-Page Evenly Spaced Regular Dot Grid Background (Covering naturally from top to bottom) */}
-      <HomeDotBackground />
-
+    <div className="min-h-screen flex flex-col bg-[#fbfcfd] font-sans text-slate-900 relative">
       <PublicNavbar />
 
       <main className="relative z-10 flex-1">
-        {/* Hero Section (Light, Clean, Airy, Institutional with Subtle Dot Grid) */}
-        <section className="relative text-slate-900 py-14 sm:py-20 lg:py-24 border-b border-slate-200/80 overflow-hidden">
-          {/* Soft subtle ambient radial glow centered on text to ensure maximum text readability */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_35%,rgba(255,255,255,0.85)_0%,rgba(255,255,255,0)_80%)] pointer-events-none z-0" />
+        {/* ==========================================================================
+            HERO SECTION (Two-Column Layout matching Screenshot 1)
+           ========================================================================== */}
+        <section className="relative py-12 lg:py-16 border-b border-slate-200/90 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+              
+              {/* Left Column: Typography, Patronage & CTAs */}
+              <div className="lg:col-span-7 space-y-6">
+                {/* Pill Badge */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#fdf8ee] border border-[#f5deae] text-[#85530f] text-xs font-bold tracking-wide shadow-2xs">
+                  <Shield className="w-3.5 h-3.5 text-amber-600" />
+                  <span>INDIA ISLAMIC CULTURAL CENTRE (IICC) • SESSION 2026–27</span>
+                </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              {/* Top Tagline Pill */}
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/90 text-slate-800 text-xs font-semibold uppercase tracking-wider mb-6 shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-amber-500" />
-                <span>India Islamic Cultural Centre (IICC) • Session 2026-27</span>
+                {/* Main Heading with Serif Font and Golden Accent Underline */}
+                <div className="relative">
+                  <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-serif font-bold text-slate-950 tracking-tight leading-[1.15]">
+                    IICC Merit-cum-Means{" "}
+                    <span className="relative inline-block">
+                      Scholarship Programme
+                      <span className="absolute -bottom-1 left-0 w-44 sm:w-56 h-1.5 bg-amber-400/90 rounded-full" />
+                    </span>
+                  </h1>
+                </div>
+
+                {/* Subtitle / Patronage Paragraph */}
+                <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl font-normal">
+                  Under the formal patronage of the Education Committee (Convener:{" "}
+                  <strong className="text-slate-900 font-semibold">Dr. Khwaja M. Shahid</strong>). Awarding{" "}
+                  <strong className="text-slate-900 font-semibold">200 structured fellowships</strong> (175 General + 25 Staff Quota) spanning School, Senior Secondary, Technical Diploma, Undergraduate, and Postgraduate Professional degrees for talented Indian students across the nation.
+                </p>
+
+                {/* CTAs Row */}
+                <div className="flex flex-wrap items-center gap-3 pt-2">
+                  <Link
+                    href="/eligibility"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#0f2544] hover:bg-[#1a3964] text-white font-bold text-xs sm:text-sm shadow-sm hover:shadow transition active:scale-98 tracking-wide cursor-pointer"
+                  >
+                    <ClipboardCheck className="w-4 h-4 text-amber-400" />
+                    <span>Check 3-Step Eligibility</span>
+                  </Link>
+
+                  <Link
+                    href="/scholarships"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-semibold text-xs sm:text-sm shadow-2xs hover:shadow-xs transition"
+                  >
+                    <span>Explore 5 Award Streams</span>
+                    <ChevronRight className="w-4 h-4 text-slate-500" />
+                  </Link>
+                </div>
+
+                {/* Statutory Gazette Link */}
+                <div className="pt-1">
+                  <Link
+                    href="/scholarships"
+                    className="inline-flex items-center gap-2 text-xs font-semibold text-amber-900 hover:text-amber-950 transition"
+                  >
+                    <FileText className="w-4 h-4 text-amber-600" />
+                    <span className="underline decoration-amber-400/70 underline-offset-4">
+                      Statutory Gazette (PDF)
+                    </span>
+                  </Link>
+                </div>
+
+                {/* Feature Micro-Stats Row */}
+                <div className="pt-6 border-t border-slate-200/90 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 flex-shrink-0">
+                      <Landmark className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 leading-tight">100% DBT Direct</div>
+                      <div className="text-[11px] text-slate-500">To Bank Account</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 flex-shrink-0">
+                      <TrendingUp className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 leading-tight">Statutory Audit</div>
+                      <div className="text-[11px] text-slate-500">Committee Monitored</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-700 flex-shrink-0">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 leading-tight">Zero Bias Quota</div>
+                      <div className="text-[11px] text-slate-500">100–Marks Matrix</div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
-                IICC Merit-cum-Means <br className="hidden sm:inline" />
-                <span className="text-navy-900">
-                  Scholarship Programme
+              {/* Right Column: Hero Image Frame & Floating Card */}
+              <div className="lg:col-span-5">
+                <div className="relative mx-auto max-w-md lg:max-w-none">
+                  {/* Card Container with golden/amber border frame */}
+                  <div className="relative rounded-3xl p-3 bg-white border-2 border-amber-300/80 shadow-xl overflow-hidden">
+                    <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-100">
+                      <img
+                        src="/hero-students.jpg"
+                        alt="Indian university students studying in an academic library"
+                        className="w-full h-full object-cover object-center"
+                      />
+                      {/* Gradient overlay for contrast at bottom */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                    </div>
+
+                    {/* Floating Grant Banner Overlay at bottom */}
+                    <div className="mt-3 bg-white rounded-2xl border border-slate-200/90 p-4 shadow-sm flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-amber-700 flex-shrink-0">
+                          <Award className="w-5 h-5 text-amber-600" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                            Max Statutory Grant
+                          </span>
+                          <span className="text-xl font-black text-emerald-600 font-mono tracking-tight">
+                            ₹60,000 <span className="text-xs font-medium text-slate-500">/ Year</span>
+                          </span>
+                        </div>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold">
+                        200 Scholars
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Address sub-caption */}
+                  <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-500 font-medium mt-3 text-center">
+                    <MapPin className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
+                    <span>87–88, Lodhi Road, New Delhi – 110003 • Statutory Central Secretariat</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            KEY METRICS BAR (4 Columns matching Screenshot 2)
+           ========================================================================== */}
+        <section className="relative py-8 bg-white border-b border-slate-200/90">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-slate-200/90">
+              
+              {/* Stat 1 */}
+              <div className="px-4 py-2 text-left">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                  Total Scholarships
                 </span>
-              </h1>
-
-              <p className="text-xs sm:text-sm text-slate-600 mb-2 font-medium">
-                87-88, Lodhi Road, New Delhi-110003 • Education Committee • Convener: Dr. Khwaja M. Shahid
-              </p>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-                Offering 200 merit-cum-means awards (175 General + 25 Staff Wards) across School, Senior Secondary, Diploma, Undergraduate, and Postgraduate Professional courses for talented regular Indian students.
-              </p>
-
-              {/* 3 Mandatory Conditions Card (Crisp Solid Light Surfaces) */}
-              <div className="relative bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 mb-8 text-left shadow-xs">
-                <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-slate-100">
-                  <span className="text-xs font-bold text-navy-950 uppercase tracking-wider flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-navy-800" />
-                    <span>Mandatory Baseline Eligibility (All 3 Conditions Required):</span>
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-500 font-semibold">Statutory Criteria</span>
+                <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono">
+                  200 <span className="text-sm font-normal text-slate-600">Seats</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                  <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 flex items-start gap-3 hover:bg-white hover:border-navy-200 transition shadow-2xs">
-                    <div className="p-1 rounded-full bg-emerald-100 text-emerald-700 flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <strong className="text-slate-900 block font-bold text-xs">Condition 1: Indian Citizen</strong>
-                      <span className="text-slate-600 text-[11px]">Must be a citizen of India residing in India</span>
-                    </div>
-                  </div>
-                  <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 flex items-start gap-3 hover:bg-white hover:border-navy-200 transition shadow-2xs">
-                    <div className="p-1 rounded-full bg-emerald-100 text-emerald-700 flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <strong className="text-slate-900 block font-bold text-xs">Condition 2: Regular Enrolment</strong>
-                      <span className="text-slate-600 text-[11px]">Enrolled full-time in recognized institute</span>
-                    </div>
-                  </div>
-                  <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 flex items-start gap-3 hover:bg-white hover:border-navy-200 transition shadow-2xs">
-                    <div className="p-1 rounded-full bg-emerald-100 text-emerald-700 flex-shrink-0 mt-0.5">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                    </div>
-                    <div>
-                      <strong className="text-slate-900 block font-bold text-xs">Condition 3: Academic Merit</strong>
-                      <span className="text-slate-600 text-[11px]">Min. 60% aggregate marks (CGPA × 9.5)</span>
-                    </div>
-                  </div>
-                </div>
+                <span className="text-xs text-slate-500 mt-1 block">
+                  Across 5 academic levels
+                </span>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
-                <Link
-                  href="/eligibility"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-bold text-xs sm:text-sm bg-navy-900 hover:bg-navy-800 text-white shadow-sm hover:shadow transition active:scale-98 tracking-wide uppercase cursor-pointer"
-                >
-                  <span>Check 3-Step Eligibility</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/scholarships"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold text-xs sm:text-sm bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-2xs hover:shadow-xs transition"
-                >
-                  <span>View 5 Award Streams</span>
-                </Link>
+              {/* Stat 2 */}
+              <div className="px-4 py-2 text-left">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                  Allocation Formula
+                </span>
+                <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono">
+                  175 + 25
+                </div>
+                <span className="text-xs text-slate-500 mt-1 block">
+                  175 General + 25 Staff Quota
+                </span>
               </div>
 
-              {/* Hero Key Metrics Bar (Solid White Card) */}
-              <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-xl bg-white border border-slate-200/90 shadow-xs text-left">
-                <div className="p-2 sm:border-r border-slate-200 last:border-r-0">
-                  <span className="text-[10px] text-slate-500 block uppercase tracking-wider font-semibold">
-                    Total Awards
-                  </span>
-                  <span className="text-lg sm:text-xl font-extrabold text-navy-950 font-mono tabular-nums">200 Seats</span>
+              {/* Stat 3 */}
+              <div className="px-4 py-2 text-left">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                  Scoring Evaluation
+                </span>
+                <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono">
+                  100 Marks
                 </div>
-                <div className="p-2 sm:border-r border-slate-200 last:border-r-0">
-                  <span className="text-[10px] text-slate-500 block uppercase tracking-wider font-semibold">
-                    General + Staff Quota
-                  </span>
-                  <span className="text-lg sm:text-xl font-extrabold text-emerald-700 font-mono tabular-nums">175 + 25</span>
+                <span className="text-xs text-slate-500 mt-1 block">
+                  Merit (70%) + Means (30%)
+                </span>
+              </div>
+
+              {/* Stat 4 */}
+              <div className="px-4 py-2 text-left">
+                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+                  Application Closes
+                </span>
+                <div className="text-2xl sm:text-3xl font-black text-red-600 font-mono">
+                  31 Oct 2026
                 </div>
-                <div className="p-2 sm:border-r border-slate-200 last:border-r-0">
-                  <span className="text-[10px] text-slate-500 block uppercase tracking-wider font-semibold">
-                    Scoring Engine
+                <span className="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  Portal closes at 23:59 IST
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            MANDATORY BASELINE ELIGIBILITY ENGINE (Card with gold top border - Screenshot 2)
+           ========================================================================== */}
+        <section className="relative py-14 bg-[#fbfcfd] border-b border-slate-200/90">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
+              {/* Golden accent bar on top edge */}
+              <div className="h-1.5 bg-amber-500 w-full" />
+
+              <div className="p-6 sm:p-8">
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-[#0f2544] flex-shrink-0 mt-0.5">
+                      <ShieldCheck className="w-5 h-5 text-blue-800" />
+                    </div>
+                    <div>
+                      <h2 className="text-xl sm:text-2xl font-bold text-slate-950 tracking-tight">
+                        Mandatory Baseline Eligibility Engine
+                      </h2>
+                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
+                        All 3 conditions are strictly statutory; failure to satisfy any one renders applicant ineligible.
+                      </p>
+                    </div>
+                  </div>
+
+                  <span className="self-start sm:self-auto px-3 py-1 rounded-full bg-blue-50 text-blue-900 border border-blue-200/80 text-xs font-bold tracking-wide uppercase">
+                    Statutory Criteria 2026–27
                   </span>
-                  <span className="text-lg sm:text-xl font-extrabold text-navy-900 font-mono tabular-nums">100 Marks</span>
                 </div>
-                <div className="p-2">
-                  <span className="text-[10px] text-slate-500 block uppercase tracking-wider font-semibold">
-                    Application Deadline
-                  </span>
-                  <span className="text-base sm:text-lg font-extrabold text-emerald-700 flex items-center gap-1.5 font-mono">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    31 Oct 2026
-                  </span>
+
+                {/* 3 Condition Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+                  {/* Condition 1 */}
+                  <div className="bg-[#f8fafc] rounded-xl border border-slate-200/90 p-5 flex flex-col justify-between hover:border-slate-300 transition shadow-2xs">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold text-slate-400">
+                          RULE § 2.1
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold text-slate-950 mb-2">
+                        Condition 1: Indian Citizen
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                        Must be a verified citizen of the Republic of India residing within national borders. Government-issued photo proof is mandatory.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-200/70 flex items-center gap-1.5 text-[11px] font-medium text-amber-900">
+                      <FileText className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Valid Aadhaar / Passport / Voter Card</span>
+                    </div>
+                  </div>
+
+                  {/* Condition 2 */}
+                  <div className="bg-[#f8fafc] rounded-xl border border-slate-200/90 p-5 flex flex-col justify-between hover:border-slate-300 transition shadow-2xs">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold text-slate-400">
+                          RULE § 2.2
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold text-slate-950 mb-2">
+                        Condition 2: Regular Enrolment
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                        Must be enrolled full-time in a regular recognized school, college, polytechnic, or UGC/AICTE approved university for Session 2026–27.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-200/70 flex items-center gap-1.5 text-[11px] font-medium text-amber-900">
+                      <Building className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Full-Time Regular Enrolment Certificate</span>
+                    </div>
+                  </div>
+
+                  {/* Condition 3 */}
+                  <div className="bg-[#f8fafc] rounded-xl border border-slate-200/90 p-5 flex flex-col justify-between hover:border-slate-300 transition shadow-2xs">
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700">
+                          <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                        </div>
+                        <span className="font-mono text-[11px] font-bold text-slate-400">
+                          RULE § 2.3
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold text-slate-950 mb-2">
+                        Condition 3: Academic Merit
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                        Must have secured minimum 60% aggregate marks (or equivalent CGPA x 9.5 conversion) in the immediate previous examination board.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-200/70 flex items-center gap-1.5 text-[11px] font-medium text-amber-900">
+                      <FileText className="w-3.5 h-3.5 text-amber-600" />
+                      <span>Official Marksheet Attestation</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* How It Works Section */}
-        <section id="how-it-works" className="relative py-16 sm:py-20 border-b border-slate-200/80">
+        {/* ==========================================================================
+            AUTOMATED 100-MARKS COMPOSITE MATRIX BANNER (Screenshot 3)
+           ========================================================================== */}
+        <section className="relative py-8 bg-[#fbfcfd]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-[#0c1e36] text-white rounded-2xl p-6 sm:p-7 flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-[#142d50]">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/30 flex items-center justify-center text-amber-400 flex-shrink-0 mt-0.5">
+                  <Calculator className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                    Automated 100–Marks Merit &amp; Means Composite Matrix
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 mt-1">
+                    Calculate your score: Academic Score (up to 70 pts) + Family Income Factor (up to 30 pts).
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href="/eligibility"
+                className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#fef3c7] hover:bg-[#fde68a] text-slate-950 font-bold text-xs sm:text-sm transition shadow-sm active:scale-98 flex-shrink-0 cursor-pointer"
+              >
+                <span>Launch Score Simulator</span>
+                <ExternalLink className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            OFFICIAL 2026-27 SCHEMES / IICC SCHOLARSHIP STREAMS (Screenshot 3 & 4)
+           ========================================================================== */}
+        <section className="relative py-14 bg-white border-b border-slate-200/90">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header with Filter Dropdown */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+              <div>
+                <span className="text-[11px] font-bold text-amber-900 tracking-widest uppercase block mb-1">
+                  Official 2026–27 Schemes
+                </span>
+                <h2 className="text-3xl font-extrabold text-slate-950 tracking-tight">
+                  IICC Scholarship Streams
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                  200 merit-cum-means awards distributed across 5 education categories plus staff ward quota.
+                </p>
+              </div>
+
+              {/* Filter by Stage Dropdown */}
+              <div className="flex items-center gap-2">
+                <label htmlFor="stage-filter" className="text-xs font-semibold text-slate-600">
+                  Filter by Stage:
+                </label>
+                <div className="relative">
+                  <select
+                    id="stage-filter"
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="appearance-none bg-white border border-slate-300 text-slate-800 text-xs font-medium rounded-lg px-3.5 py-2 pr-8 shadow-2xs hover:border-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-900 cursor-pointer"
+                  >
+                    <option value="All">All 5 Categories</option>
+                    <option value="Undergraduate">Undergraduate Professional</option>
+                    <option value="Postgraduate">Postgraduate Professional</option>
+                    <option value="Senior Secondary">Senior Secondary (XI–XII)</option>
+                    <option value="School">School Level (IX–X)</option>
+                    <option value="Diploma">Diploma Courses</option>
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+            </div>
+
+            {/* 3-Column Scholarship Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredScholarships.map((sch) => (
+                <div
+                  key={sch.id}
+                  className="bg-white rounded-2xl border border-slate-200/90 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-5"
+                >
+                  <div className="space-y-4">
+                    {/* Category & Deadline Badges */}
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="px-2.5 py-1 rounded-md bg-blue-50 text-blue-900 border border-blue-200/80 font-bold text-[10px] tracking-wide uppercase">
+                        {sch.category}
+                      </span>
+                      <span className="px-2.5 py-1 rounded-md bg-rose-50 text-rose-800 border border-rose-200/80 font-semibold text-[10px] flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-rose-600" />
+                        <span>31 Oct 2026</span>
+                      </span>
+                    </div>
+
+                    {/* Card Title */}
+                    <h3 className="text-lg font-bold text-slate-950 leading-snug">
+                      <Link href={`/scholarships/${sch.id}`} className="hover:text-blue-900 transition">
+                        {sch.name.replace("IICC Merit-cum-Means ", "")}
+                      </Link>
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                      {sch.description}
+                    </p>
+
+                    {/* Eligibility Norm Container */}
+                    <div className="bg-[#f8fafc] rounded-xl p-3.5 border border-slate-200/80 text-xs">
+                      <div className="text-slate-800 font-bold mb-1 flex items-center gap-1.5 text-[11px]">
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Eligibility Norm:</span>
+                      </div>
+                      <p className="text-slate-600 text-[11px] leading-relaxed">
+                        {sch.eligibilitySummary}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom Grant & Actions Row */}
+                  <div className="pt-4 border-t border-slate-100 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">
+                          Grant Amount
+                        </span>
+                        <span className="text-lg font-black text-emerald-600 font-mono tracking-tight">
+                          {sch.amount}
+                        </span>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-amber-100/80 text-amber-900 border border-amber-300/70 text-xs font-bold">
+                        {sch.totalAwards} Seats
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link
+                        href={`/scholarships/${sch.id}`}
+                        className="w-full text-center px-3 py-2 rounded-lg border border-slate-300 hover:bg-slate-50 text-slate-800 font-semibold text-xs shadow-2xs transition"
+                      >
+                        Details
+                      </Link>
+                      <Link
+                        href="/student/application"
+                        className="w-full inline-flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-[#0f2544] hover:bg-[#1a3964] text-white font-bold text-xs shadow-2xs transition active:scale-95 cursor-pointer"
+                      >
+                        <span>Apply</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ==========================================================================
+            HOW IT WORKS & SELECTION WORKFLOW
+           ========================================================================== */}
+        <section id="how-it-works" className="relative py-16 bg-[#fbfcfd] border-b border-slate-200/90">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-14">
               <span className="text-xs font-bold text-navy-900 uppercase tracking-widest bg-white px-3 py-1 rounded-full border border-slate-200 shadow-2xs">
                 IICC Merit Workflow
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">How Selection Works</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 mt-2 tracking-tight">
+                How Selection Works
+              </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-2">
                 From online eligibility verification to 100-mark scoring formula and merit-ranked award disbursement.
               </p>
@@ -192,7 +590,7 @@ export default function LandingPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="relative bg-white rounded-xl border border-slate-200/90 p-6 shadow-xs hover:border-slate-300 transition">
-                <div className="w-9 h-9 rounded-lg bg-navy-900 text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
+                <div className="w-9 h-9 rounded-lg bg-[#0f2544] text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
                   1
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 mb-1.5">Check Eligibility</h3>
@@ -202,7 +600,7 @@ export default function LandingPage() {
               </div>
 
               <div className="relative bg-white rounded-xl border border-slate-200/90 p-6 shadow-xs hover:border-slate-300 transition">
-                <div className="w-9 h-9 rounded-lg bg-navy-900 text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
+                <div className="w-9 h-9 rounded-lg bg-[#0f2544] text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
                   2
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 mb-1.5">Submit Application</h3>
@@ -212,7 +610,7 @@ export default function LandingPage() {
               </div>
 
               <div className="relative bg-white rounded-xl border border-slate-200/90 p-6 shadow-xs hover:border-slate-300 transition">
-                <div className="w-9 h-9 rounded-lg bg-navy-900 text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
+                <div className="w-9 h-9 rounded-lg bg-[#0f2544] text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
                   3
                 </div>
                 <h3 className="text-sm font-bold text-slate-900 mb-1.5">Merit Shortlisting</h3>
@@ -225,7 +623,7 @@ export default function LandingPage() {
                 <div className="w-9 h-9 rounded-lg bg-emerald-700 text-white font-bold text-sm flex items-center justify-center mb-3.5 shadow-2xs">
                   4
                 </div>
-                <h3 className="text-sm font-bold text-slate-900 mb-1.5">Final Award & DBT</h3>
+                <h3 className="text-sm font-bold text-slate-900 mb-1.5">Final Award &amp; DBT</h3>
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Once biometric verification completes, award letters are issued and funds are disbursed directly to your bank account.
                 </p>
@@ -234,139 +632,69 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* Available Scholarships Section */}
-        <section className="relative py-16 sm:py-20 border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-              <div>
-                <span className="text-xs font-bold text-navy-900 uppercase tracking-widest bg-white px-2.5 py-0.5 rounded border border-slate-200 shadow-2xs">
-                  Official 2026-27 Schemes
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">IICC Scholarship Streams</h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  200 merit-cum-means awards distributed across 5 education categories plus staff quota.
+        {/* ==========================================================================
+            CALL TO ACTION BANNER (Dark Navy with Watermark - Screenshot 5)
+           ========================================================================== */}
+        <section className="relative py-14 sm:py-18 bg-[#fbfcfd]">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative bg-[#0d1e35] text-white rounded-3xl p-8 sm:p-14 overflow-hidden shadow-xl border border-slate-800">
+              {/* Subtle Mortarboard Watermark in background */}
+              <GraduationCap
+                className="absolute -right-8 -bottom-10 w-72 h-72 text-slate-700/20 pointer-events-none select-none"
+                strokeWidth={1}
+              />
+
+              <div className="relative z-10 max-w-2xl space-y-4">
+                {/* Applications Live Pill */}
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-semibold uppercase tracking-wider">
+                  <Zap className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Applications Live For Academic Year 2026–27</span>
+                </div>
+
+                {/* Serif Heading */}
+                <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+                  Ready to secure your educational grant?
+                </h2>
+
+                {/* Subtitle */}
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Complete the 3-minute preliminary eligibility check and start your journey toward joining the 200 honored scholars of the India Islamic Cultural Centre.
                 </p>
-              </div>
-              <Link
-                href="/scholarships"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-navy-900 hover:text-navy-950 hover:underline"
-              >
-                <span>View All 5 Award Streams</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {MOCK_SCHOLARSHIPS.map((sch) => (
-                <div
-                  key={sch.id}
-                  className="relative bg-white rounded-xl border border-slate-200/90 p-5 sm:p-6 hover:border-slate-300 transition hover:shadow-xs flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-3 mb-3">
-                      <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-navy-50 text-navy-900 border border-navy-200/80">
-                        {sch.category}
-                      </span>
-                      <span className="text-[11px] font-semibold text-amber-900 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                        Deadline: {sch.deadline}
-                      </span>
-                    </div>
+                {/* Buttons Row */}
+                <div className="flex flex-wrap items-center gap-3.5 pt-4">
+                  <Link
+                    href="/eligibility"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] text-slate-950 font-bold text-xs sm:text-sm shadow-md transition active:scale-98 cursor-pointer"
+                  >
+                    <span>Start Free Eligibility Check</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
 
-                    <h3 className="text-base font-bold text-slate-900 mb-1.5">
-                      <Link href={`/scholarships/${sch.id}`} className="hover:text-navy-900">
-                        {sch.name}
-                      </Link>
-                    </h3>
-
-                    <p className="text-xs text-slate-600 mb-3.5 line-clamp-2 leading-relaxed">{sch.description}</p>
-
-                    <div className="bg-slate-50 rounded-lg p-3 border border-slate-200/70 text-xs text-slate-600 mb-4">
-                      <strong className="text-slate-800">Eligibility:</strong> {sch.eligibilitySummary}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">
-                        Grant Amount
-                      </span>
-                      <span className="text-base font-extrabold text-emerald-700 font-mono tabular-nums">
-                        {sch.amount}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <Link
-                        href={`/scholarships/${sch.id}`}
-                        className="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold shadow-2xs"
-                      >
-                        Details
-                      </Link>
-                      <Link
-                        href="/student/application"
-                        className="px-3.5 py-1.5 rounded-lg bg-navy-900 hover:bg-navy-800 text-white text-xs font-bold shadow-2xs transition active:scale-95 cursor-pointer"
-                      >
-                        Apply
-                      </Link>
-                    </div>
-                  </div>
+                  <Link
+                    href="/student/register"
+                    className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/20 font-semibold text-xs sm:text-sm transition cursor-pointer"
+                  >
+                    <span>Create Student Account</span>
+                  </Link>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Important Dates Timeline (Clean Light Surface) */}
-        <section className="relative py-14 sm:py-16 border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-xl mx-auto mb-10">
-              <span className="text-xs font-bold text-navy-900 uppercase tracking-widest bg-white px-2.5 py-0.5 rounded border border-slate-200 shadow-2xs">
-                Schedule & Milestones
-              </span>
-              <h2 className="text-2xl font-extrabold text-slate-900 mt-2 tracking-tight">Key Operational Dates</h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="relative bg-white p-5 rounded-xl border border-slate-200 text-center shadow-xs">
-                <div className="text-[11px] font-bold text-navy-800 uppercase tracking-wider">
-                  Portal Opens
-                </div>
-                <div className="text-lg font-bold text-slate-900 mt-1 font-mono">01 Aug 2026</div>
-                <p className="text-[11px] text-slate-500 mt-1">Applications & registration live</p>
-              </div>
-              <div className="relative bg-white p-5 rounded-xl border border-slate-200 text-center shadow-xs">
-                <div className="text-[11px] font-bold text-amber-800 uppercase tracking-wider">
-                  Application Closes
-                </div>
-                <div className="text-lg font-bold text-slate-900 mt-1 font-mono">31 Oct 2026</div>
-                <p className="text-[11px] text-slate-500 mt-1">Hard deadline for submissions</p>
-              </div>
-              <div className="relative bg-white p-5 rounded-xl border border-slate-200 text-center shadow-xs">
-                <div className="text-[11px] font-bold text-purple-800 uppercase tracking-wider">
-                  Shortlist Released
-                </div>
-                <div className="text-lg font-bold text-slate-900 mt-1 font-mono">15 Nov 2026</div>
-                <p className="text-[11px] text-slate-500 mt-1">Provisional merit & waiting list</p>
-              </div>
-              <div className="relative bg-white p-5 rounded-xl border border-slate-200 text-center shadow-xs">
-                <div className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">
-                  KYC & Disbursement
-                </div>
-                <div className="text-lg font-bold text-slate-900 mt-1 font-mono">01 Dec 2026</div>
-                <p className="text-[11px] text-slate-500 mt-1">Video verification & DBT transfers</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section id="faq" className="relative py-16 sm:py-20 border-b border-slate-200/80">
+        {/* ==========================================================================
+            FREQUENTLY ASKED QUESTIONS (FAQ)
+           ========================================================================== */}
+        <section id="faq" className="relative py-14 sm:py-18 bg-white border-t border-slate-200/90">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
-              <span className="text-xs font-bold text-navy-900 uppercase tracking-widest bg-white px-2.5 py-0.5 rounded border border-slate-200 shadow-2xs">
-                Guidance & Queries
+              <span className="text-xs font-bold text-navy-900 uppercase tracking-widest bg-slate-50 px-2.5 py-0.5 rounded border border-slate-200 shadow-2xs">
+                Guidance &amp; Queries
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2 tracking-tight">Frequently Asked Questions</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 mt-2 tracking-tight">
+                Frequently Asked Questions
+              </h2>
             </div>
 
             <div className="space-y-3">
@@ -377,7 +705,7 @@ export default function LandingPage() {
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full flex items-center justify-between p-4 text-left font-bold text-xs sm:text-sm text-slate-900 bg-white hover:bg-slate-50 transition cursor-pointer"
+                    className="w-full flex items-center justify-between p-4 sm:p-5 text-left font-bold text-xs sm:text-sm text-slate-900 bg-white hover:bg-slate-50 transition cursor-pointer"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown
@@ -387,44 +715,12 @@ export default function LandingPage() {
                     />
                   </button>
                   {openFaq === idx && (
-                    <div className="px-4 pb-4 pt-1 text-xs text-slate-600 leading-relaxed bg-slate-50 border-t border-slate-100">
+                    <div className="px-5 pb-5 pt-1 text-xs text-slate-600 leading-relaxed bg-[#f8fafc] border-t border-slate-100">
                       {faq.a}
                     </div>
                   )}
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action Banner (Light Corporate Style) */}
-        <section className="relative py-14 sm:py-18">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative bg-white border border-slate-200/90 rounded-2xl p-8 sm:p-12 shadow-xs text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-navy-900 border border-blue-200/80 text-[11px] font-semibold uppercase tracking-wider mb-4">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                <span>Academic Year 2026-27 Intake</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight">
-                Ready to apply for your scholarship grant?
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mb-8 leading-relaxed">
-                Complete the 3-minute eligibility check and take the first step towards securing your educational fellowship.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-                <Link
-                  href="/eligibility"
-                  className="px-6 py-3 rounded-lg bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs uppercase tracking-wider transition shadow-sm hover:shadow cursor-pointer"
-                >
-                  Start Free Eligibility Check
-                </Link>
-                <Link
-                  href="/student/register"
-                  className="px-6 py-3 rounded-lg bg-white border border-slate-300 text-slate-800 font-semibold text-xs hover:bg-slate-50 transition shadow-2xs"
-                >
-                  Create Student Account
-                </Link>
-              </div>
             </div>
           </div>
         </section>

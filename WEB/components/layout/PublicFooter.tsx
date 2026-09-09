@@ -1,131 +1,96 @@
 import React from "react";
 import Link from "next/link";
-import { GraduationCap, ShieldCheck, Mail, Phone, MapPin, ExternalLink } from "lucide-react";
+import { GraduationCap, ShieldCheck, ChevronRight, Lock } from "lucide-react";
 
 export const PublicFooter: React.FC = () => {
   return (
-    <footer className="relative z-10 bg-slate-50 text-slate-600 border-t border-slate-200 text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-          {/* Col 1: Institutional Authority */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-navy-900 border border-navy-800 flex items-center justify-center text-white shadow-xs">
-                <GraduationCap className="w-4.5 h-4.5 text-amber-400" />
+    <footer className="relative z-10 bg-[#091524] text-slate-300 border-t border-slate-800 text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 mb-12">
+          {/* Col 1: Institutional Authority & Contact */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#142842] border border-[#1e3a5f] flex items-center justify-center text-white shadow-xs">
+                <GraduationCap className="w-5 h-5 text-amber-400" />
               </div>
-              <span className="text-sm font-extrabold text-navy-950 tracking-tight">
-                IICC SCHOLARSHIPS
-              </span>
-            </div>
-            <p className="text-xs text-slate-600 leading-relaxed mb-4">
-              India Islamic Cultural Centre (IICC) • Education Committee. Offering 200 merit-cum-means awards across school, diploma, undergraduate, and postgraduate professional courses for meritorious regular Indian students.
-            </p>
-            <div className="flex items-center gap-2 text-[11px] text-slate-700 font-medium p-2 bg-white rounded-lg border border-slate-200/90 shadow-2xs">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              <span>Dr. Khwaja M. Shahid, Convener (Education)</span>
-            </div>
-          </div>
-
-          {/* Col 2: 5 Award Streams */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">
-              Award Streams (200 Seats)
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link href="/scholarships" className="text-slate-600 hover:text-navy-950 transition flex items-center justify-between">
-                  <span>UG Professional</span>
-                  <span className="font-mono text-[11px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">50 Seats</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/scholarships" className="text-slate-600 hover:text-navy-950 transition flex items-center justify-between">
-                  <span>Senior Secondary (XI–XII)</span>
-                  <span className="font-mono text-[11px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">50 Seats</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/scholarships" className="text-slate-600 hover:text-navy-950 transition flex items-center justify-between">
-                  <span>PG Professional</span>
-                  <span className="font-mono text-[11px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">40 Seats</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/scholarships" className="text-slate-600 hover:text-navy-950 transition flex items-center justify-between">
-                  <span>School Level (IX–X)</span>
-                  <span className="font-mono text-[11px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">20 Seats</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/scholarships" className="text-slate-600 hover:text-navy-950 transition flex items-center justify-between">
-                  <span>Diploma Courses</span>
-                  <span className="font-mono text-[11px] text-amber-800 font-semibold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200/60">15 Seats</span>
-                </Link>
-              </li>
-              <li>
-                <span className="text-slate-600 flex items-center justify-between pt-1 border-t border-slate-200 text-[11px]">
-                  <span>IICC Staff Children Quota</span>
-                  <span className="font-mono text-emerald-800 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200/60">25 Seats</span>
+              <div>
+                <span className="text-base font-black text-white tracking-tight block">
+                  IICC Scholarships
                 </span>
-              </li>
+                <span className="text-[11px] text-slate-400 font-semibold tracking-wider uppercase block">
+                  India Islamic Cultural Centre, New Delhi
+                </span>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed max-w-md">
+              Statutory Public Welfare and Merit Fellowship Portal established to support talented students of all communities under the charter of the Education Committee.
+            </p>
+
+            <div className="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800/80">
+              <p>
+                <strong className="text-slate-200">Headquarters:</strong> 87–88, Lodhi Road, New Delhi – 110003, India
+              </p>
+              <p>
+                <strong className="text-slate-200">Helpdesk:</strong> +91 11 4353 5353 / 2469 0884 &nbsp;|&nbsp; <strong className="text-slate-200">Email:</strong> scholarship@iiccentre.org
+              </p>
+              <p>
+                <strong className="text-slate-200">Education Committee Convener:</strong> Dr. Khwaja M. Shahid
+              </p>
+            </div>
+          </div>
+
+          {/* Col 2: Official Governance Directory */}
+          <div className="lg:col-span-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-4">
+              Official Governance
+            </h4>
+            <ul className="space-y-2.5 text-xs text-slate-400">
+              {[
+                { name: "Mandatory Statutory Guidelines", href: "/scholarships" },
+                { name: "Terms of Award", href: "/scholarships" },
+                { name: "Right to Information (RTI)", href: "/#faq" },
+                { name: "Education Committee Directory", href: "/#faq" },
+                { name: "Direct Benefit Transfer (DBT) Protocol", href: "/#how-it-works" },
+                { name: "Privacy Policy", href: "/#faq" }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1.5 hover:text-white transition group"
+                  >
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-amber-400 transition" />
+                    <span>{item.name}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Col 3: Guidelines */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">
-              Mandatory Conditions
+          {/* Col 3: Portal Integrity Card */}
+          <div className="lg:col-span-4">
+            <h4 className="text-xs font-bold text-white uppercase tracking-widest mb-4">
+              Portal Integrity
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              <li className="flex items-start gap-2">
-                <span className="font-mono text-[10px] bg-slate-200 px-1.5 py-0.5 rounded text-slate-800 font-bold">C1</span>
-                <span>Indian citizen residing in India</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-mono text-[10px] bg-slate-200 px-1.5 py-0.5 rounded text-slate-800 font-bold">C2</span>
-                <span>Regular full-time student in recognized institute</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-mono text-[10px] bg-slate-200 px-1.5 py-0.5 rounded text-slate-800 font-bold">C3</span>
-                <span>Min. 60% aggregate marks in last exam</span>
-              </li>
-              <li className="pt-2 border-t border-slate-200">
-                <Link href="/eligibility" className="text-blue-900 hover:underline font-semibold flex items-center gap-1">
-                  <span>Check Instant Eligibility Engine</span>
-                  <span>→</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 4: Contact & Headquarters */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-200 pb-2">
-              Headquarters & Enquiries
-            </h4>
-            <div className="space-y-3 text-xs text-slate-600">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                <span>India Islamic Cultural Centre, 87-88, Lodhi Road, New Delhi – 110003</span>
+            <div className="bg-[#102035] border border-slate-700/70 rounded-2xl p-5 text-xs shadow-md">
+              <div className="flex items-center gap-2 font-bold text-amber-400 mb-2.5">
+                <ShieldCheck className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <span className="text-white text-xs font-bold">Secure Application Gateway</span>
               </div>
-              <div className="flex items-center gap-2 text-slate-800">
-                <Phone className="w-4 h-4 text-slate-500 flex-shrink-0" />
-                <span className="font-mono">+91 11 4353 5353 / 2469 0884</span>
-              </div>
-              <div className="flex items-center gap-2 text-slate-800">
-                <Mail className="w-4 h-4 text-slate-500 flex-shrink-0" />
-                <span className="font-mono">scholarship@iiccentre.org</span>
-              </div>
+              <p className="text-slate-300 leading-relaxed text-[11px]">
+                Submissions are audited under the direct supervision of the statutory Education Committee. False representations are liable for disqualification under relevant statutory provisions.
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+        {/* Bottom copyright & attribution */}
+        <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
-            © 2026 India Islamic Cultural Centre (IICC). All rights reserved. Official Scholarship Platform.
+            © 2026 India Islamic Cultural Centre (IICC). All rights reserved. Statutory Scholarship Portal.
           </div>
-          <div className="flex items-center gap-6">
-            <span>87-88, Lodhi Road, New Delhi-110003</span>
+          <div className="flex items-center gap-6 text-slate-400">
+            <span>87–88, Lodhi Road, New Delhi – 110003</span>
             <span>Education Committee</span>
           </div>
         </div>
